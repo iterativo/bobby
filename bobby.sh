@@ -1,6 +1,11 @@
 #!/bin/bash
 # TODO Description
 
+if [ $# -lt 2 ]; then
+	echo "Error: Invalid number of args"
+	exit
+fi
+
 # URL txt check vars
 str=$1
 url=$2
