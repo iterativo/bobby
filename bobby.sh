@@ -2,8 +2,8 @@
 # TODO Description
 
 # URL txt check vars
-str="<span class=\"customer_commit_display\">In Stock</span>"
-url="http://www.apple.com/shop/product/G0RG1LL/A/refurbished-154-inch-macbook-pro-28ghz-quad-core-intel-i7-with-retina-display"
+str=$1
+url=$2
 
 # Notification vars
 title="MBP is available!"
