@@ -7,8 +7,8 @@ if [ $# -lt 2 ]; then
 fi
 
 # URL txt check vars
-str=$1
-url=$2
+url=$1
+str=$2
 
 # Notification vars
 title="MBP is available!"
