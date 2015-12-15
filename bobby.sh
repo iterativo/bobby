@@ -1,15 +1,16 @@
 #!/bin/bash
-# TODO Description
+# Program to check URL content for provided text and notify user when found
 
 appname="$(basename "$0")"
 
+### Options
 : ${title:="$appname"}
 : ${msg:="Found text in URL"}
 : ${sound:="Ping.aiff"}
 
 usage="
 Usage: ./$appname [-h] url txt [-t title] [-m msg] [-s sound]
--- Program to check URL content for provided text (case insensitive) and generate Apple Script notification when found.
+-- Program to check URL content for provided text (case insensitive) and notify user when found.
 
 where:
   -h   show this help text
@@ -22,21 +23,24 @@ where:
 Example:
   ./$appname http://www.amazon.com/products/1 \"in stock\""
 
-if [ $# -lt 2 ] || [ $1 -eq -h ]; then
+### Args length requirements check
+if [ $# -lt 2 ] || [ $1 == "-h" ]; then
 	echo "$usage"
 	exit
 fi
 
-# URL txt check vars
+### Args
 url=$1
-str=$2
+txt=$2
 
-# Notification vars
-title="MBP is available!"
-msg="Go to refurbished outlet"
-sound="default"
+urlregex="(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]"
+if ! [[ $url =~ $urlregex ]]; then
+	echo "ERROR: Invalid 'url' arg - please enter a valid URL."
+	echo "For usage, run: ./$appname -h"
+	exit
+fi
 
-if curl -s "$url" | grep -q -i "$str"; then
+if curl -s "$url" | grep -q -i "$txt"; then
 	osascript -e 'display notification "'"$msg"'" with title "'"$title"'" sound name "'"$sound"'"'
 else
 	echo "not found"
