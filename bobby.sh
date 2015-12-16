@@ -92,6 +92,6 @@ done
 if curl -s "$url" | grep -q -i "$txt"; then
 	osascript -e 'display notification "'"$msg"'" with title "'"$title"'" sound name "'"$sound"'"'
 else
-	echo "not found"
+	printf "Unable to find text in URL, using:\n  url: \"$url\"\n  txt: \"$txt\"\n"
 fi
 
