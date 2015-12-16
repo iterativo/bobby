@@ -25,7 +25,7 @@ where:
   -s   sound name for Apple Script notification (default: $sound)
 
 Example:
-  ./$appname http://www.amazon.com/products/1 \"in stock\""
+  ./$appname http://www.amazon.com/products/1 \"in stock\"\n"
 
 ########################
 #         Args         #
@@ -33,7 +33,7 @@ Example:
 
 # Check args were provided
 if [ $# -lt 2 ] || [ $1 == "-h" ]; then
-	echo "$usage"
+	printf "$usage"
 	exit
 fi
 
@@ -43,8 +43,7 @@ txt=$2
 # Check URL validity
 urlregex="(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]"
 if ! [[ $url =~ $urlregex ]]; then
-	echo "ERROR: Invalid 'url' arg. Please enter a valid URL."
-	echo "For usage, run: ./$appname -h"
+	printf "ERROR: Invalid 'url' arg. Please enter a valid URL.\nFor usage, run: ./$appname -h\n"
 	exit 1
 fi
 
@@ -57,7 +56,7 @@ while test $# -gt 0; do
                         if test $# -gt 0; then
                                 title=$1
                         else
-                                echo "no title specified"
+                                printf "ERROR: No title specified.\n"
                                 exit 1
                         fi
                         shift
@@ -67,7 +66,7 @@ while test $# -gt 0; do
                         if test $# -gt 0; then
                                 msg=$1
                         else
-                                echo "no msg specified"
+                                printf "ERROR: No msg specified.\n"
                                 exit 1
                         fi
                         shift
@@ -77,7 +76,7 @@ while test $# -gt 0; do
                         if test $# -gt 0; then
                                 sound=$1
                         else
-                                echo "no sound specified"
+                                printf "ERROR: No sound specified.\n"
                                 exit 1
                         fi
                         shift
